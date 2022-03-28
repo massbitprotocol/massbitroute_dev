@@ -1,0 +1,35 @@
+#!/bin/bash
+SITE_ROOT=$(realpath $(dirname $(realpath $0))/..)
+ROOT_DIR=$SITE_ROOT
+
+cd $SITE_ROOT
+source $SITE_ROOT/bin/shell_func.sh
+loadEnv $SITE_ROOT
+
+export HOME=$SITE_ROOT
+
+loop() {
+	while true; do
+		$0 $@
+		sleep 3
+	done
+
+}
+_timeout() {
+	t=$1
+	if [ -n "$t" ]; then
+		shift
+		timeout $t $0 $@
+	else
+		$0 $@
+	fi
+}
+_monitor(){
+    echo "Monitor"
+}
+_run() {
+	rm -rf $SITE_ROOT/tmp/*
+	sleep 3
+	$SITE_ROOT/start_server
+}
+$@

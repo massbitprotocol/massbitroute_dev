@@ -1,0 +1,6 @@
+sites/
+tmp/
+db/
+logs/
+run/
+src/
