@@ -1,19 +1,21 @@
 #!/bin/bash
 SITE_ROOT=$(realpath $(dirname $(realpath $0))/..)
 ROOT_DIR=$SITE_ROOT
-
 cd $SITE_ROOT
-
-loadEnv $SITE_ROOT
-
-source $SITE_ROOT/bin/shell_func.sh
+# source $SITE_ROOT/bin/shell_func.sh
 source $SITE_ROOT/scripts/base.sh
+_load_env $SITE_ROOT
 
 export HOME=$SITE_ROOT
+
+_reload() {
+	echo "Reload"
+}
 _monitor() {
 	echo "Monitor"
 }
 _run() {
+	echo "Running"
 	rm -rf $SITE_ROOT/tmp/*
 	sleep 3
 	$SITE_ROOT/start_server

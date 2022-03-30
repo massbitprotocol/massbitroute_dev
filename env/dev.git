@@ -1,0 +1,19 @@
+export GIT_PRIVATE_AUTH="massbit:c671e4ea06280e7a3f6f9aea6e8155fcde9bc703"
+export PRIVATE_GIT_DOMAIN="git.$DOMAIN"
+export PUBLIC_GIT_DOMAIN="github.com"
+export GIT_PUBLIC_URL="https://github.com"
+export GIT_PRIVATE_URL="https://$GIT_PRIVATE_AUTH@$PRIVATE_GIT_DOMAIN"
+export GIT_AUTH_MAIL=
+export GIT_AUTH_NAME=
+
+export GIT_NODE_WRITE=
+export GIT_GATEWAY_WRITE=
+export GIT_GWMAN_WRITE=
+export GIT_STAT_WRITE=
+export GIT_MONITOR_WRITE=
+export GIT_API_WRITE=
+export GIT_APIDEPLOY_WRITE=
+export GIT_GBC_WRITE=
+export GIT_ASDF_WRITE=
+export GIT_SSL_WRITE=
+export GIT_MKAGENT_WRITE=

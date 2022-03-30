@@ -1,0 +1,3 @@
+export SESSION_KEY="abcdefghijmbrbaysaklmnopqrstuvwo"
+export SESSION_IV="123mbrbaysao4567"
+export SESSION_EXPIRES="30d"

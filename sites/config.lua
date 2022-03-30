@@ -47,8 +47,8 @@ local _config = {
         ]]
         },
         services_git = {
-            disabled = true,
-            path = "git"
+            disabled = false,
+            path = "services/git"
         },
         services_gwman = {
             disabled = false,
