@@ -13,6 +13,7 @@ cd $SITE_ROOT
 mbr_root=/massbit/massbitroute/app
 service_dir=$mbr_root/src/sites/services
 
+export ASDF_BRANCH=${ASDF_BRANCH:-dev}
 export SSL_BRANCH=${SSL_BRANCH:-dev}
 export GWMAN_BRANCH=${GWMAN_BRANCH:-dev}
 export NODE_BRANCH=${NODE_BRANCH:-dev}
@@ -26,6 +27,7 @@ export MKAGENT_BRANCH=${MKAGENT_BRANCH:-dev}
 
 _repo() {
 	REPOS="/etc/letsencrypt|$GIT_PRIVATE_READ_URL/massbitroute/ssl.git|$SSL_BRANCH \
+ $mbr_root/gbc/bin/.asdf|https://github.com/massbitprotocol/massbitroute_asdf|$ASDF_BRANCH \
   $service_dir/gwman|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_gwman.git|$GWMAN_BRANCH \
   $service_dir/api|$GIT_PUBLIC_URL/massbitprotocol/massbitroute.git|$API_BRANCH \
   $service_dir/session|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_session.git|$SESSION_BRANCH \
@@ -43,7 +45,7 @@ export HOME=$SITE_ROOT
 
 _init() {
 	source $SITE_ROOT/.env
-	_git_clone $GIT_PUBLIC_URL/massbitprotocol/massbitroute_gbc.git /massbit/massbitroute/app/gbc
+	_git_clone $GIT_PUBLIC_URL/massbitprotocol/massbitroute_gbc.git $mbr_root/gbc
 	bash $SITE_ROOT/cmd_server _env
 	source $SITE_ROOT/.env_raw
 	_repo

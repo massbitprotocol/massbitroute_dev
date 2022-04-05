@@ -5,6 +5,7 @@ BRANCH=${BRANCH:-dev}
 # export $GIT_PRIVATE_READ_URL
 
 # Options
+# export ASDF_BRANCH=${ASDF_BRANCH:-dev}
 # export SSL_BRANCH=${SSL_BRANCH:-dev}
 # export GWMAN_BRANCH=${GWMAN_BRANCH:-dev}
 # export NODE_BRANCH=${NODE_BRANCH:-dev}
