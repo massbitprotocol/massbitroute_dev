@@ -1,4 +1,5 @@
 #!/bin/bash
+
 TYPE="mbr"
 
 SITE_ROOT=$(realpath $(dirname $(realpath $0))/..)
@@ -11,18 +12,29 @@ cd $SITE_ROOT
 
 mbr_root=/massbit/massbitroute/app
 service_dir=$mbr_root/src/sites/services
-mkdir -p
+
+export SSL_BRANCH=${SSL_BRANCH:-dev}
+export GWMAN_BRANCH=${GWMAN_BRANCH:-dev}
+export NODE_BRANCH=${NODE_BRANCH:-dev}
+export GATEWAY_BRANCH=${GATEWAY_BRANCH:-dev}
+export STAT_BRANCH=${STAT_BRANCH:-dev}
+export MONITOR_BRANCH=${MONITOR_BRANCH:-dev}
+export API_BRANCH=${API_BRANCH:-dev}
+export SESSION_BRANCH=${SESSION_BRANCH:-dev}
+export GIT_BRANCH=${GIT_BRANCH:-dev}
+export MKAGENT_BRANCH=${MKAGENT_BRANCH:-dev}
+
 _repo() {
-	REPOS="/etc/letsencrypt|$GIT_PRIVATE_READ_URL/massbitroute/ssl.git|master \
-  $service_dir/gwman|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_gwman.git \
-  $service_dir/api|$GIT_PUBLIC_URL/massbitprotocol/massbitroute.git \
-  $service_dir/session|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_session.git \
-  $service_dir/stat|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_stat.git \
-  $service_dir/node|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_node.git \
-  $service_dir/gateway|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_gateway.git \
-  $service_dir/monitor|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_monitor.git \
-  $service_dir/mkagent|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_mkagent.git \
-  $service_dir/git|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_git.git \
+	REPOS="/etc/letsencrypt|$GIT_PRIVATE_READ_URL/massbitroute/ssl.git|$SSL_BRANCH \
+  $service_dir/gwman|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_gwman.git|$GWMAN_BRANCH \
+  $service_dir/api|$GIT_PUBLIC_URL/massbitprotocol/massbitroute.git|$API_BRANCH \
+  $service_dir/session|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_session.git|$SESSION_BRANCH \
+  $service_dir/stat|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_stat.git|$STAT_BRANCH \
+  $service_dir/node|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_node.git|$NODE_BRANCH \
+  $service_dir/gateway|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_gateway.git|$GATEWAY_BRANCH \
+  $service_dir/monitor|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_monitor.git|$MONITOR_BRANCH \
+  $service_dir/mkagent|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_mkagent.git|$MKAGENT_BRANCH \
+  $service_dir/git|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_git.git|$GIT_BRANCH \
 "
 }
 _repo
