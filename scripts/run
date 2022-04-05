@@ -1,12 +1,63 @@
 #!/bin/bash
+TYPE="mbr"
+
 SITE_ROOT=$(realpath $(dirname $(realpath $0))/..)
-ROOT_DIR=$SITE_ROOT
-cd $SITE_ROOT
-# source $SITE_ROOT/bin/shell_func.sh
+
+if [ -e "$SITE_ROOT/cmd_server" ]; then bash $SITE_ROOT/cmd_server _env; fi
+if [ -f "$SITE_ROOT/.env_raw" ]; then source $SITE_ROOT/.env_raw; fi
 source $SITE_ROOT/scripts/base.sh
-_load_env $SITE_ROOT
+
+cd $SITE_ROOT
+
+mbr_root=/massbit/massbitroute/app
+service_dir=$mbr_root/src/sites/services
+
+_repo() {
+	REPOS="/etc/letsencrypt|$GIT_PRIVATE_READ_URL/massbitroute/ssl.git|master \
+  $service_dir/gwman|$GIT_PUBLIC_URL/massbitroute_gwman.git \
+  $service_dir/api|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_api.git \
+  $service_dir/session|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_session.git \
+  $service_dir/stat|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_stat.git \
+  $service_dir/node|$GIT_PUBLIC_URL/massbitroute_node.git \
+  $service_dir/gateway|$GIT_PUBLIC_URL/massbitroute_gateway.git \
+  $service_dir/monitor|$GIT_PUBLIC_URL/massbitroute_monitor.git \
+  $service_dir/mkagent|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_mkagent.git \
+"
+}
+_repo
 
 export HOME=$SITE_ROOT
+
+_init() {
+	source $SITE_ROOT/.env
+	_git_clone $GIT_PUBLIC_URL/massbitprotocol/massbitroute_gbc.git /massbit/massbitroute/app/gbc
+	bash $SITE_ROOT/cmd_server _env
+	source $SITE_ROOT/.env_raw
+	_repo
+}
+_install() {
+	mkdir -p $SITE_ROOT/logs $SITE_ROOT/db
+	_git_config
+	_init
+	for _pathgit in $REPOS; do
+		_path=$(echo $_pathgit | cut -d'|' -f1)
+		_url=$(echo $_pathgit | cut -d'|' -f2)
+		_branch=$(echo $_pathgit | cut -d'|' -f3)
+		_git_clone $_url $_path $_branch
+	done
+
+	ln -sf /massbit/massbitroute/app/gbc /massbit/massbitroute/app/src/gbc
+	ln -sf /massbit/massbitroute/app/gbc/bin/openresty /usr/local/openresty
+	apt-get update
+	apt-get install -y git apache2-utils supervisor jq python-is-python2 libssl-dev libmaxminddb-dev
+
+	systemctl enable supervisor
+	systemctl start supervisor
+
+	mkdir -p /etc/supervisor/conf.d
+	cp supervisor.conf /etc/supervisor/conf.d/${TYPE}.conf
+	supervisorctl update
+}
 
 _reload() {
 	echo "Reload"

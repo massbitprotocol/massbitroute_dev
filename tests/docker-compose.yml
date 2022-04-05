@@ -1,0 +1,22 @@
+version: "2"
+services:
+  mbr:
+   privileged: true
+   restart: unless-stopped
+   image: phusion/baseimage:bionic-1.0.0
+   command: "sleep infinity"
+   network_mode: "host"
+   # command: "bash /app/sites/cdn/cmd.sh start"
+   # command: /sbin/my_init
+   # ports:
+   # - "80:80"
+   # - "443:443"
+   # - "53:53/udp"
+   # - "1935:1935"
+   # - "53:53"
+   # - "6379:6379"
+   # volumes:
+   #  - ./sites:/app/sites:rw
+   #  - ./asdf:/root/.asdf:rw
+   # environment:
+   #  - GIT_BRANCH=master
