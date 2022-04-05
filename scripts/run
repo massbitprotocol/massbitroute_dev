@@ -15,7 +15,7 @@ service_dir=$mbr_root/src/sites/services
 _repo() {
 	REPOS="/etc/letsencrypt|$GIT_PRIVATE_READ_URL/massbitroute/ssl.git|master \
   $service_dir/gwman|$GIT_PUBLIC_URL/massbitroute_gwman.git \
-  $service_dir/api|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_api.git \
+  $service_dir/api|$GIT_PUBLIC_URL/massbitprotocol/massbitroute.git \
   $service_dir/session|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_session.git \
   $service_dir/stat|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_stat.git \
   $service_dir/node|$GIT_PUBLIC_URL/massbitroute_node.git \
