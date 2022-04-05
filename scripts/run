@@ -11,7 +11,7 @@ cd $SITE_ROOT
 
 mbr_root=/massbit/massbitroute/app
 service_dir=$mbr_root/src/sites/services
-
+mkdir -p
 _repo() {
 	REPOS="/etc/letsencrypt|$GIT_PRIVATE_READ_URL/massbitroute/ssl.git|master \
   $service_dir/gwman|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_gwman.git \
@@ -22,6 +22,7 @@ _repo() {
   $service_dir/gateway|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_gateway.git \
   $service_dir/monitor|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_monitor.git \
   $service_dir/mkagent|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_mkagent.git \
+  $service_dir/git|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_git.git \
 "
 }
 _repo
