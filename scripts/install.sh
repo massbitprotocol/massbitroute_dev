@@ -24,6 +24,7 @@ fi
 
 apt update
 apt install -y git
+mkdir -p /massbit/massbitroute/app/src
 if [ ! -d "/massbit/massbitroute/app/src/.git" ]; then
 	git clone https://github.com/massbitprotocol/massbitroute_dev.git /massbit/massbitroute/app/src -b $BRANCH
 else
