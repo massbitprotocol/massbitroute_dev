@@ -1,1 +1,0 @@
-export WHITELIST_PARTNERS="allow 34.124.164.200; allow 222.253.82.171; deny all;"

@@ -10,10 +10,10 @@ local _config = {
     lua_package_path = [[_GBC_CORE_ROOT_/gbc/src/?.lua;]],
     lua_package_cpath = [[_GBC_CORE_ROOT_/gbc/src/?.so;]],
     sites = {
-        api = {
-            -- disabled = true,
-            package_path = [[_SITE_ROOT_/src/?.lua]],
-            package_cpath = [[_SITE_ROOT_/src/?.so]],
+        service_api = {
+            disabled = false,
+            -- package_path = [[_SITE_ROOT_/src/?.lua]],
+            -- package_cpath = [[_SITE_ROOT_/src/?.so]],
             path = "services/api",
             maininit = [[
             env BIND_ADDRESS;
@@ -55,24 +55,24 @@ local _config = {
             path = "services/gwman"
         },
         services_gateway = {
-            disabled = true,
+            disabled = false,
             path = "services/gateway"
         },
         services_node = {
-            disabled = true,
+            disabled = false,
             path = "services/node"
         },
         services_stat = {
-            disabled = true,
+            disabled = false,
             path = "services/stat"
         },
-        services_monitor = {
-            disabled = true,
-            path = "services/monitor"
-        },
         services_session = {
-            disabled = true,
+            disabled = false,
             path = "services/session"
+        },
+        services_monitor = {
+            disabled = false,
+            path = "services/monitor"
         }
     },
     supervisor = [[
