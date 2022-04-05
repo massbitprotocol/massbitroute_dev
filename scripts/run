@@ -13,6 +13,7 @@ cd $SITE_ROOT
 mbr_root=/massbit/massbitroute/app
 service_dir=$mbr_root/src/sites/services
 
+export MBRAPP_BRANCH=${MBRAPP_BRANCH:-staging}
 export ASDF_BRANCH=${ASDF_BRANCH:-dev}
 export SSL_BRANCH=${SSL_BRANCH:-dev}
 export GWMAN_BRANCH=${GWMAN_BRANCH:-dev}
