@@ -26,6 +26,9 @@ _git_clone() {
 	else
 		git -C $_dir pull origin $_branch
 	fi
+	if [ -f "$_dir/scripts/run" ]; then
+		$_dir/scripts/run _prepare
+	fi
 
 }
 
