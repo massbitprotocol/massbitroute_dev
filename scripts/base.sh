@@ -20,9 +20,15 @@ _git_clone() {
 	if [ -z "$_branch" ]; then _branch=$MBR_ENV; fi
 	# if [ -d "$_dir" ]; then rm -rf $_dir; fi
 	mkdir -p $_dir
-	git clone $_url $_dir -b $_branch
-	git branch --set-upstream-to=origin/$_branch
+	if [ ! -d "$_dir/.git" ]; then
+		git clone $_url $_dir -b $_branch
+		git branch --set-upstream-to=origin/$_branch
+	else
+		git -C $_dir pull origin $_branch
+	fi
+
 }
+
 _update_sources() {
 	_git_config
 	_is_reload=0
