@@ -77,9 +77,15 @@ _install() {
 
 _reload() {
 	echo "Reload"
+	$SITE_ROOT/cmd_server _update
 }
 _monitor() {
 	echo "Monitor"
+	_update_sources $REPOS
+	is_reload=$?
+	if [ $is_reload -ne 0 ]; then
+		$0 _reload
+	fi
 }
 _run() {
 	echo "Running"
