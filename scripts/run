@@ -4,6 +4,8 @@ TYPE="mbr"
 
 SITE_ROOT=$(realpath $(dirname $(realpath $0))/..)
 
+export HOME=$SITE_ROOT
+
 if [ -e "$SITE_ROOT/cmd_server" ]; then bash $SITE_ROOT/cmd_server _env; fi
 if [ -f "$SITE_ROOT/.env_raw" ]; then source $SITE_ROOT/.env_raw; fi
 source $SITE_ROOT/scripts/base.sh
@@ -27,7 +29,9 @@ export GIT_BRANCH=${GIT_BRANCH:-dev}
 export MKAGENT_BRANCH=${MKAGENT_BRANCH:-dev}
 
 _repo() {
-	REPOS="/etc/letsencrypt|$GIT_PRIVATE_READ_URL/massbitroute/ssl.git|$SSL_BRANCH \
+	REPOS="\
+$SITE_ROOT/env|$GIT_PRIVATE_READ_URL/massbitroute/env.git|$SSL_BRANCH \
+/etc/letsencrypt|$GIT_PRIVATE_READ_URL/massbitroute/ssl.git|$SSL_BRANCH \
  $mbr_root/gbc/bin/.asdf|https://github.com/massbitprotocol/massbitroute_asdf|$ASDF_BRANCH \
   $service_dir/gwman|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_gwman.git|$GWMAN_BRANCH \
   $service_dir/api|$GIT_PUBLIC_URL/massbitprotocol/massbitroute.git|$API_BRANCH \
@@ -42,8 +46,6 @@ _repo() {
 }
 _repo
 
-export HOME=$SITE_ROOT
-
 _init() {
 	source $SITE_ROOT/.env
 	_git_clone $GIT_PUBLIC_URL/massbitprotocol/massbitroute_gbc.git $mbr_root/gbc
@@ -51,9 +53,13 @@ _init() {
 	source $SITE_ROOT/.env_raw
 	_repo
 }
+_prepare() {
+	echo "Prepare"
+}
 _install() {
 	mkdir -p $SITE_ROOT/logs $SITE_ROOT/db
 	_git_config
+	_prepare
 	_init
 	for _pathgit in $REPOS; do
 		_path=$(echo $_pathgit | cut -d'|' -f1)
@@ -66,7 +72,7 @@ _install() {
 	ln -sf /massbit/massbitroute/app/gbc/bin/openresty /usr/local/openresty
 	apt-get update
 	apt-get install -y git apache2-utils supervisor jq python-is-python2 libssl-dev libmaxminddb-dev
-
+	/etc/init.d/supervisor start
 	systemctl enable supervisor
 	systemctl start supervisor
 

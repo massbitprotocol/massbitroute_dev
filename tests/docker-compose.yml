@@ -3,7 +3,8 @@ services:
   mbr:
    privileged: true
    restart: unless-stopped
-   image: ubuntu:focal
+   image: phusion/baseimage:focal-1.2.0
+   #image: ubuntu:focal
    command: "sleep infinity"
    network_mode: "host"
    volumes:
