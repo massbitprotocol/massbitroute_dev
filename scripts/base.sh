@@ -2,15 +2,15 @@
 SITE_ROOT=$(realpath $(dirname $(realpath $0))/..)
 
 _git_config() {
-	if [ ! -f "$HOME/.gitconfig" ]; then
-		cat >$HOME/.gitconfig <<EOF
+	# if [ ! -f "$HOME/.gitconfig" ]; then
+	cat >$HOME/.gitconfig <<EOF
    [http]
         sslverify = false
     [user]
 	email = baysao@gmail.com
 	name = Baysao
 EOF
-	fi
+	# fi
 
 }
 _git_clone() {
