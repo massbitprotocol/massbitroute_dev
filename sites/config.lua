@@ -54,14 +54,6 @@ local _config = {
             disabled = false,
             path = "services/gwman"
         },
-        services_gateway = {
-            disabled = false,
-            path = "services/gateway"
-        },
-        services_node = {
-            disabled = false,
-            path = "services/node"
-        },
         services_stat = {
             disabled = false,
             path = "services/stat"
@@ -73,6 +65,14 @@ local _config = {
         services_monitor = {
             disabled = false,
             path = "services/monitor"
+        },
+        services_gateway = {
+            disabled = true,
+            path = "services/gateway"
+        },
+        services_node = {
+            disabled = true,
+            path = "services/node"
         }
     },
     supervisor = [[

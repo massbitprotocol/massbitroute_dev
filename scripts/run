@@ -72,6 +72,7 @@ _install() {
 	ln -sf /massbit/massbitroute/app/gbc/bin/openresty /usr/local/openresty
 	apt-get update
 	apt-get install -y git apache2-utils supervisor jq python-is-python2 libssl-dev libmaxminddb-dev
+
 	/etc/init.d/supervisor start
 	systemctl enable supervisor
 	systemctl start supervisor
@@ -81,6 +82,22 @@ _install() {
 	supervisorctl update
 }
 
+_update() {
+	st=0
+	if [ "$SITE_ROOT/.module_paths" ]; then
+		cat "$SITE_ROOT/.module_paths" | while read _m; do
+			_sc="$_m/scripts/run"
+			if [ -f "$_sc" ]; then
+				bash "$_m/scripts/run" _update
+				if [ $st -ne 0 ]; then
+					st=$?
+				fi
+			fi
+		done
+	fi
+	return $st
+
+}
 _reload() {
 	echo "Reload"
 	$SITE_ROOT/cmd_server _update
@@ -89,6 +106,12 @@ _monitor() {
 	echo "Monitor"
 	_update_sources $REPOS
 	is_reload=$?
+
+	_update
+	if [ $is_reload -ne 0 ]; then
+		is_reload=$?
+	fi
+
 	if [ $is_reload -ne 0 ]; then
 		$0 _reload
 	fi
