@@ -5,3 +5,6 @@ logs/
 run/
 src/
 /.env.*
+/env/
+/.env_raw
+/.module_paths
