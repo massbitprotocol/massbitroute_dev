@@ -87,12 +87,6 @@ _modules() {
 _install() {
 	mkdir -p $SITE_ROOT/logs/nginx $SITE_ROOT/db $SITE_ROOT/tmp
 	_git_config
-	if [ "$SITE_ROOT/.module_paths" ]; then
-		cat "$SITE_ROOT/.module_paths" | while read _m; do
-
-		done
-	fi
-
 	_prepare
 	_init
 	# _install_repos
