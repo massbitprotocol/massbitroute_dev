@@ -65,12 +65,38 @@ _install_repos() {
 		_git_clone $_url $_path $_branch
 	done
 }
+
+_modules() {
+	_cmd=$1
+	_st_modules=0
+	if [ "$SITE_ROOT/.module_paths" ]; then
+		cat "$SITE_ROOT/.module_paths" | while read _m; do
+			_sc="$_m/scripts/run"
+			if [ -f "$_sc" ]; then
+				echo bash "$_m/scripts/run" $_cmd
+				if [ $_st_modules -ne 0 ]; then
+					_st_modules=$?
+				fi
+			fi
+		done
+	fi
+	return $_st_modules
+
+}
+
 _install() {
-	mkdir -p $SITE_ROOT/logs $SITE_ROOT/db
+	mkdir -p $SITE_ROOT/logs/nginx $SITE_ROOT/db $SITE_ROOT/tmp
 	_git_config
+	if [ "$SITE_ROOT/.module_paths" ]; then
+		cat "$SITE_ROOT/.module_paths" | while read _m; do
+
+		done
+	fi
+
 	_prepare
 	_init
-	_install_repos
+	# _install_repos
+	_modules _install
 
 	ln -sf /massbit/massbitroute/app/gbc /massbit/massbitroute/app/src/gbc
 	ln -sf /massbit/massbitroute/app/gbc/bin/openresty /usr/local/openresty
@@ -87,20 +113,7 @@ _install() {
 }
 
 _update() {
-	st=0
-	if [ "$SITE_ROOT/.module_paths" ]; then
-		cat "$SITE_ROOT/.module_paths" | while read _m; do
-			_sc="$_m/scripts/run"
-			if [ -f "$_sc" ]; then
-				bash "$_m/scripts/run" _update
-				if [ $st -ne 0 ]; then
-					st=$?
-				fi
-			fi
-		done
-	fi
-	return $st
-
+	_modules _update
 }
 _reload() {
 	echo "Reload"
