@@ -46,9 +46,20 @@ $SITE_ROOT/env|$GIT_PRIVATE_READ_URL/massbitroute/env.git|$SSL_BRANCH \
 }
 _repo
 
+_tune_os() {
+	#dns
+	sed 's/#DNSStubListener=yes/DNSStubListener=no/' /etc/systemd/resolved.conf -i
+	pkill -f systemd-resolve
+
+	echo nameserver 8.8.8.8 >/etc/resolv.conf
+	systemctl stop systemd-resolved
+	systemctl disable systemd-resolved
+}
+
 _prepare() {
 	echo "Prepare"
 
+	_tune_os
 	_git_clone $GIT_PRIVATE_READ_URL/massbitroute/env.git /massbit/massbitroute/app/src/env $BRANCH
 
 	source $SITE_ROOT/.env
