@@ -51,6 +51,7 @@ _tune_os() {
 	sed 's/#DNSStubListener=yes/DNSStubListener=no/' /etc/systemd/resolved.conf -i
 	pkill -f systemd-resolve
 
+	rm /etc/resolv.conf
 	echo nameserver 8.8.8.8 >/etc/resolv.conf
 	systemctl stop systemd-resolved
 	systemctl disable systemd-resolved
