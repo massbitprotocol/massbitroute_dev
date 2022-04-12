@@ -109,7 +109,7 @@ _install() {
 	_git_config
 	_prepare
 	# _init
-	# _install_repos
+	_install_repos
 	_modules _install
 
 	ln -sf /massbit/massbitroute/app/gbc /massbit/massbitroute/app/src/gbc
