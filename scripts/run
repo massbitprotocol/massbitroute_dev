@@ -14,6 +14,7 @@ cd $SITE_ROOT
 
 mbr_root=/massbit/massbitroute/app
 service_dir=$mbr_root/src/sites/services
+
 export BRANCH=${BRANCH:-dev}
 export MBRAPP_BRANCH=${MBRAPP_BRANCH:-dev}
 export ASDF_BRANCH=${ASDF_BRANCH:-dev}
@@ -66,6 +67,8 @@ _prepare() {
 	source $SITE_ROOT/.env
 
 	_git_clone $GIT_PUBLIC_URL/massbitprotocol/massbitroute_gbc.git $mbr_root/gbc
+	_git_clone https://github.com/massbitprotocol/massbitroute_asdf $mbr_root/gbc/bin/.asdf $ASDF_BRANCH
+
 	bash $SITE_ROOT/cmd_server _env
 	source $SITE_ROOT/.env_raw
 	_repo
@@ -88,7 +91,7 @@ _modules() {
 		cat "$SITE_ROOT/.module_paths" | while read _m; do
 			_sc="$_m/scripts/run"
 			if [ -f "$_sc" ]; then
-				echo bash "$_m/scripts/run" $_cmd
+				bash "$_m/scripts/run" $_cmd
 				if [ $_st_modules -ne 0 ]; then
 					_st_modules=$?
 				fi
