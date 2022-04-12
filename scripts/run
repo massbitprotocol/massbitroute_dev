@@ -14,7 +14,7 @@ cd $SITE_ROOT
 
 mbr_root=/massbit/massbitroute/app
 service_dir=$mbr_root/src/sites/services
-
+export BRANCH=${BRANCH:-dev}
 export MBRAPP_BRANCH=${MBRAPP_BRANCH:-dev}
 export ASDF_BRANCH=${ASDF_BRANCH:-dev}
 export SSL_BRANCH=${SSL_BRANCH:-dev}
@@ -46,16 +46,19 @@ $SITE_ROOT/env|$GIT_PRIVATE_READ_URL/massbitroute/env.git|$SSL_BRANCH \
 }
 _repo
 
-_init() {
+_prepare() {
+	echo "Prepare"
+
+	_git_clone $GIT_PRIVATE_READ_URL/massbitroute/env.git /massbit/massbitroute/app/src/env $BRANCH
+
 	source $SITE_ROOT/.env
+
 	_git_clone $GIT_PUBLIC_URL/massbitprotocol/massbitroute_gbc.git $mbr_root/gbc
 	bash $SITE_ROOT/cmd_server _env
 	source $SITE_ROOT/.env_raw
 	_repo
 }
-_prepare() {
-	echo "Prepare"
-}
+
 _install_repos() {
 	_repo
 	for _pathgit in $REPOS; do
@@ -85,10 +88,15 @@ _modules() {
 }
 
 _install() {
+	if [ -z "$GIT_PRIVATE_READ_URL" ]; then
+		echo "Need GIT_PRIVATE_READ_URL"
+		exit 1
+	fi
+
 	mkdir -p $SITE_ROOT/logs/nginx $SITE_ROOT/db $SITE_ROOT/tmp
 	_git_config
 	_prepare
-	_init
+	# _init
 	# _install_repos
 	_modules _install
 
