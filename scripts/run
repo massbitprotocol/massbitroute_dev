@@ -81,6 +81,7 @@ _modules() {
 		cat "$SITE_ROOT/.module_paths" | while read _m; do
 			_sc="$_m/scripts/run"
 			if [ -f "$_sc" ]; then
+				echo "$_m/scripts/run" $_cmd
 				bash "$_m/scripts/run" $_cmd
 				if [ $_st_modules -ne 0 ]; then
 					_st_modules=$?
