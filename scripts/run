@@ -47,7 +47,7 @@ _prepare() {
 	source $SITE_ROOT/.env
 
 	_git_clone $GIT_PUBLIC_URL/massbitprotocol/massbitroute_gbc.git $mbr_root/gbc
-	_git_clone https://github.com/massbitprotocol/massbitroute_asdf $mbr_root/gbc/bin/.asdf $ASDF_BRANCH
+	# _git_clone https://github.com/massbitprotocol/massbitroute_asdf $mbr_root/gbc/bin/.asdf $ASDF_BRANCH
 
 	bash $SITE_ROOT/cmd_server _env
 	source $SITE_ROOT/.env_raw
