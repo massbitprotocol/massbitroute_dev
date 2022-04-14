@@ -163,12 +163,12 @@ _update() {
 	_update_repos
 	_st_update=$?
 
-	_modules _update
-	_st_modules=$?
+	# _modules _update
+	# _st_modules=$?
 
-	if [ $_st_modules -ne 0 ]; then
-		_st_update=$_st_modules
-	fi
+	# if [ $_st_modules -ne 0 ]; then
+	# 	_st_update=$_st_modules
+	# fi
 	return $_st_update
 }
 
