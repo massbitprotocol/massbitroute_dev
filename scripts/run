@@ -108,6 +108,8 @@ _supervisor() {
 	mkdir -p /etc/supervisor/conf.d
 	cp supervisor.conf /etc/supervisor/conf.d/${TYPE}.conf
 	supervisorctl update
+	supervisorctl status
+	$SITE_ROOT/cmd_server status
 }
 _init() {
 	echo "Init"
