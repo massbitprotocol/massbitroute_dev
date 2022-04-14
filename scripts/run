@@ -139,6 +139,13 @@ _install() {
 	# _modules _install_one
 	_supervisor
 }
+_update_repos() {
+	_git_config
+	_repo
+	_update_sources $REPOS
+	_st_repo=$?
+	return $_st_repo
+}
 
 _update() {
 	echo "Update"
