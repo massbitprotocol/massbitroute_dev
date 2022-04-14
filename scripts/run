@@ -77,7 +77,7 @@ _install_repos() {
 }
 
 _modules() {
-	_cmd=$1
+	_cmd="$@"
 	_st_modules=0
 	if [ "$SITE_ROOT/.module_paths" ]; then
 		cat "$SITE_ROOT/.module_paths" | while read _m; do
