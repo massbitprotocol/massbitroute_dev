@@ -133,7 +133,7 @@ _install() {
 	_init
 	_prepare
 	_install_repos
-	_modules _install_one
+	# _modules _install_one
 	_supervisor
 }
 
