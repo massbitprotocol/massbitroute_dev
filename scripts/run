@@ -82,7 +82,12 @@ _modules() {
 	if [ "$SITE_ROOT/.module_paths" ]; then
 		cat "$SITE_ROOT/.module_paths" | while read _m; do
 			_repo_name=$(basename $_m)
-			_git_clone $GIT_PUBLIC_URL/massbitprotocol/massbitroute_${_repo_name}.git $service_dir/${_repo_name}
+			if [ "$_repo_name" == "api" ]; then
+				_git_clone $GIT_PUBLIC_URL/massbitprotocol/massbitroute.git $service_dir/${_repo_name}
+			else
+				_git_clone $GIT_PUBLIC_URL/massbitprotocol/massbitroute_${_repo_name}.git $service_dir/${_repo_name}
+			fi
+
 			_sc="$_m/scripts/run"
 			if [ -f "$_sc" ]; then
 				echo "$_m/scripts/run" $_cmd
