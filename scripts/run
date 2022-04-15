@@ -79,7 +79,8 @@ _install_repos() {
 _modules() {
 	_cmd="$@"
 	_st_modules=0
-	if [ "$SITE_ROOT/.module_paths" ]; then
+	bash $SITE_ROOT/cmd_server _updateconf
+	if [ -f "$SITE_ROOT/.module_paths" ]; then
 		cat "$SITE_ROOT/.module_paths" | while read _m; do
 			_repo_name=$(basename $_m)
 			if [ "$_repo_name" == "api" ]; then
