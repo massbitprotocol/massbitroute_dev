@@ -32,6 +32,4 @@ else
 	git -C /massbit/massbitroute/app/src pull origin $BRANCH
 fi
 
-# git clone $GIT_PRIVATE_READ_URL/massbitroute/env.git /massbit/massbitroute/app/src/env -b $BRANCH
-
 bash -x /massbit/massbitroute/app/src/scripts/run _install
