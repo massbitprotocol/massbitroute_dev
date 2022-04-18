@@ -51,6 +51,7 @@ $service_dir/gwman|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_gwman.git|$GWMAN
  $service_dir/monitor|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_monitor.git|$MONITOR_BRANCH \
  $service_dir/mkagent|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_mkagent.git|$MKAGENT_BRANCH \
  $service_dir/git|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_git.git|$GIT_BRANCH \
+ $service_dir/git/data|https://$GIT_GITDEPLOY_WRITE@$GIT_PRIVATE_DOMAIN/massbitroute/gitdeploy.git|$GIT_BRANCH \
 "
 }
 _repo
@@ -187,6 +188,13 @@ _monitor() {
 	if [ $is_reload -ne 0 ]; then
 		$0 _reload
 	fi
+}
+_tests() {
+	cat $SITE_ROOT/.module_paths | while read _site; do
+		if [ -f "$_site/apps/tests/shells/run_tests" ]; then
+			ROOT_DIR=$SITE_ROOT SITE_ROOT=_site bash $_site/apps/tests/shells/run_tests
+		fi
+	done
 }
 _run() {
 	echo "Running"
