@@ -6,7 +6,8 @@ SITE_ROOT=$(realpath $(dirname $(realpath $0))/..)
 
 export HOME=$SITE_ROOT
 
-if [ -e "$SITE_ROOT/cmd_server" ]; then bash $SITE_ROOT/cmd_server _env; fi
+cmd_server=$SITE_ROOT/cmd_server
+if [ -e "$SITE_ROOT/cmd_server" ]; then bash $cmd_server _env; fi
 if [ -f "$SITE_ROOT/.env_raw" ]; then source $SITE_ROOT/.env_raw; fi
 source $SITE_ROOT/scripts/base.sh
 
@@ -146,6 +147,11 @@ _init() {
 	_repo
 
 }
+_refresh() {
+	_prepare
+	_modules _update_repos
+	_reload
+}
 _install() {
 	echo "Install"
 	_init
@@ -164,6 +170,13 @@ _update_repos() {
 
 _reload() {
 	$SITE_ROOT/cmd_server _update
+	# tmp=$(mktemp)
+	$cmd_server status | grep worker- | awk '{print $1}' | while read f; do
+		# n=$(cat $tmp | wc -l)
+		# cat $tmp | while read f; do
+		$cmd_server restart $f
+	done #| parallel -j$n
+	# rm $tmp
 }
 _update() {
 	echo "Update"
@@ -192,7 +205,7 @@ _monitor() {
 _tests() {
 	cat $SITE_ROOT/.module_paths | while read _site; do
 		if [ -f "$_site/apps/tests/shells/run_tests" ]; then
-			ROOT_DIR=$SITE_ROOT SITE_ROOT=_site bash $_site/apps/tests/shells/run_tests
+			ROOT_DIR=$SITE_ROOT SITE_DIR=$_site bash $_site/apps/tests/shells/run_tests
 		fi
 	done
 }
