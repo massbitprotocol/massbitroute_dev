@@ -168,8 +168,7 @@ _update_repos() {
 	return $_st_repo
 }
 
-_reload() {
-	$SITE_ROOT/cmd_server _update
+_reload_worker() {
 	# tmp=$(mktemp)
 	$cmd_server status | grep worker- | awk '{print $1}' | while read f; do
 		# n=$(cat $tmp | wc -l)
@@ -177,6 +176,10 @@ _reload() {
 		$cmd_server restart $f
 	done #| parallel -j$n
 	# rm $tmp
+}
+_reload() {
+	_reload_worker
+	$SITE_ROOT/cmd_server nginx -s reload
 }
 _update() {
 	echo "Update"
