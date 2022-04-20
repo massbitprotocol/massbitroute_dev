@@ -179,6 +179,7 @@ _reload_worker() {
 }
 _reload() {
 	_reload_worker
+	$SITE_ROOT/cmd_server _updateconf
 	$SITE_ROOT/cmd_server nginx -s reload
 }
 _update() {
