@@ -73,6 +73,16 @@ _prepare() {
 	_repo
 }
 
+_tune_os() {
+	#dns
+	sed 's/#DNSStubListener=yes/DNSStubListener=no/' /etc/systemd/resolved.conf -i
+	pkill -f systemd-resolve
+
+	rm /etc/resolv.conf
+	echo nameserver 8.8.8.8 >/etc/resolv.conf
+	systemctl stop systemd-resolved
+	systemctl disable systemd-resolved
+}
 _install_repos() {
 	_git_config
 	_repo
@@ -148,6 +158,7 @@ _init() {
 
 }
 _refresh() {
+	_tune_os
 	_prepare
 	_modules _update_repos
 	_reload
