@@ -86,6 +86,7 @@ _tune_os() {
 _install_repos() {
 	_git_config
 	_repo
+	source $SITE_ROOT/.env_raw
 	for _pathgit in $REPOS; do
 		_path=$(echo $_pathgit | cut -d'|' -f1)
 		_url=$(echo $_pathgit | cut -d'|' -f2)
