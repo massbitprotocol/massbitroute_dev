@@ -158,6 +158,7 @@ _init() {
 
 }
 _refresh() {
+	git -C $SITE_ROOT pull
 	_tune_os
 	_prepare
 	_modules _update_repos
