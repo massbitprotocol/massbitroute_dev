@@ -60,7 +60,7 @@ _repo
 _prepare() {
 	echo "Prepare"
 	mkdir -p $SITE_ROOT/logs/nginx $SITE_ROOT/db $SITE_ROOT/tmp
-	rm -rf $SITE_ROOT/tmp/*
+	# rm -rf $SITE_ROOT/tmp/*
 	_git_clone $GIT_PRIVATE_READ_URL/massbitroute/env.git /massbit/massbitroute/app/src/env $BRANCH
 
 	source $SITE_ROOT/.env
