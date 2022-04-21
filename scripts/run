@@ -164,6 +164,7 @@ _refresh() {
 	_prepare
 	_modules _update_repos
 	_reload
+	echo "$(date)" >/massbit/massbitroute/app/src/sites/services/api/public/deploy/build.txt
 }
 _install() {
 	echo "Install"
