@@ -42,11 +42,11 @@ _update_sources() {
 	for _pathgit in $@; do
 		_path=$(echo $_pathgit | cut -d'|' -f1)
 		_branch=$(echo $_pathgit | cut -d'|' -f3)
-		tmp="$(timeout 60 git checkout $_branch 2>&1)"
+		tmp="$(timeout 60 git -C $_path checkout $_branch 2>&1)"
 		echo "$tmp" | grep -i "error"
 		if [ $? -eq 0 ]; then
 			timeout 60 git -C $_path reset --hard
-			tmp="$(timeout 60 git checkout $_branch 2>&1)"
+			tmp="$(timeout 60 git -C $_path checkout $_branch 2>&1)"
 		fi
 		tmp="$(timeout 60 git -C $_path pull origin $_branch 2>&1)"
 		echo "$tmp"
