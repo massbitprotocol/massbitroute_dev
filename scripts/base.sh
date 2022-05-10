@@ -23,11 +23,9 @@ _git_clone() {
 	if [ ! -d "$_dir/.git" ]; then
 		git clone $_url $_dir -b $_branch
 		git -C $_dir branch --set-upstream-to=origin/$_branch
-		# else
-		# git -C $_dir pull origin $_branch
+	else
+		git -C $_dir pull origin $_branch
 	fi
-	git -C $_dir checkout $_branch
-	git -C $_dir pull origin $_branch
 	if [ -f "$_dir/scripts/run" ]; then
 		echo "========================="
 		echo "$_dir/scripts/run _prepare"
@@ -43,20 +41,20 @@ _update_sources() {
 	branch=$MBR_ENV
 	for _pathgit in $@; do
 		_path=$(echo $_pathgit | cut -d'|' -f1)
+		_url=$(echo $_pathgit | cut -d'|' -f2)
 		_branch=$(echo $_pathgit | cut -d'|' -f3)
-		tmp="$(timeout 60 git -C $_path checkout $_branch 2>&1)"
-		echo "$tmp" | grep -i "error"
-		if [ $? -eq 0 ]; then
-			timeout 60 git -C $_path reset --hard
-			tmp="$(timeout 60 git -C $_path checkout $_branch 2>&1)"
-		fi
-		tmp="$(timeout 60 git -C $_path pull origin $_branch 2>&1)"
-		echo "$tmp"
-		echo "$tmp" | grep -i "error"
-		if [ $? -eq 0 ]; then
-			timeout 60 git -C $_path reset --hard
-			tmp="$(timeout 60 git -C $_path pull origin $_branch 2>&1)"
-		fi
+		if [ -z "$_branch" ]; then _branch=$branch; fi
+		git -C $_path fetch --all
+
+		git -C $_path checkout $_branch
+		git -C $_path reset --hard
+		tmp="$(git -C $_path pull origin $_branch 2>&1)"
+		# echo "$tmp"
+		# echo "$tmp" | grep -i "error"
+		# if [ $? -eq 0 ]; then
+		# 	timeout 60 git -C $_path reset --hard
+		# 	tmp="$(timeout 60 git -C $_path pull origin $_branch 2>&1)"
+		# fi
 
 		echo "$tmp" | grep -i "updating"
 		st=$?
