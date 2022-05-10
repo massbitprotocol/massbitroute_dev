@@ -46,10 +46,10 @@ local _config = {
 
         ]]
         },
-        services_git = {
-            disabled = false,
-            path = "services/git"
-        },
+        -- services_git = {
+        --     disabled = false,
+        --     path = "services/git"
+        -- },
         services_gwman = {
             disabled = false,
             path = "services/gwman"
@@ -57,23 +57,23 @@ local _config = {
         services_stat = {
             disabled = false,
             path = "services/stat"
-        },
-        services_session = {
-            disabled = false,
-            path = "services/session"
-        },
-        services_monitor = {
-            disabled = false,
-            path = "services/monitor"
-        },
-        services_gateway = {
-            disabled = true,
-            path = "services/gateway"
-        },
-        services_node = {
-            disabled = true,
-            path = "services/node"
         }
+        -- services_session = {
+        --     disabled = false,
+        --     path = "services/session"
+        -- }
+        -- services_monitor = {
+        --     disabled = false,
+        --     path = "services/monitor"
+        -- },
+        -- services_gateway = {
+        --     disabled = true,
+        --     path = "services/gateway"
+        -- },
+        -- services_node = {
+        --     disabled = true,
+        --     path = "services/node"
+        -- }
     },
     supervisor = [[
 
