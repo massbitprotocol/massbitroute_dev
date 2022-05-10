@@ -23,9 +23,11 @@ _git_clone() {
 	if [ ! -d "$_dir/.git" ]; then
 		git clone $_url $_dir -b $_branch
 		git -C $_dir branch --set-upstream-to=origin/$_branch
-	else
-		git -C $_dir pull origin $_branch
+		# else
+		# git -C $_dir pull origin $_branch
 	fi
+	git -C $_dir checkout $_branch
+	git -C $_dir pull origin $_branch
 	if [ -f "$_dir/scripts/run" ]; then
 		echo "========================="
 		echo "$_dir/scripts/run _prepare"
