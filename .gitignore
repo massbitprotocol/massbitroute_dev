@@ -8,3 +8,5 @@ src/
 /env/
 /.env_raw
 /.module_paths
+/.node/
+/.cache/

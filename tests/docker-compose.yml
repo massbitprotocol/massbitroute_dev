@@ -13,5 +13,5 @@ services:
      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket
      - /run/systemd/system:/run/systemd/system
      - /sys/fs/cgroup:/sys/fs/cgroup
-   # environment:
-   #  - GIT_BRANCH=master
+   environment:
+    - GIT_PRIVATE_READ_URL=http://massbit:c671e4ea06280e7a3f6f9aea6e8155fcde9bc703@git.massbitroute.dev
