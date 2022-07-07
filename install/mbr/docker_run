@@ -1,0 +1,33 @@
+#!/bin/bash
+mkdir vars logs
+_run_env() {
+	TYPE=$1
+	docker run -d -t -i --rm \
+		-p "443:443" \
+		--name "mbr_${TYPE}" \
+		-e "ENV=" \
+		-e "ID=" \
+		-e "USER_ID=" \
+		-e "BLOCKCHAIN=" \
+		-e "NETWORK=" \
+		-e "ZONE=" \
+		-e "APP_KEY=" \
+		-e "PORTAL_URL=" \
+		-v "$PWD/logs:/massbit/massbitroute/app/src/sites/services/$TYPE/logs:rw" \
+		-v "$PWD/vars:/massbit/massbitroute/app/src/sites/services/$TYPE/vars:rw" \
+		massbit/massbitroute_${TYPE}:latest
+}
+_run_cmd() {
+	TYPE=$1
+	CMD=$2
+	docker run -d -t -i --rm \
+		-p "443:443" \
+		--name "mbr_${TYPE}" \
+		-e "INSTALL_CMD=$CMD" \
+		-v "$PWD/logs:/massbit/massbitroute/app/src/sites/services/$TYPE/logs:rw" \
+		-v "$PWD/vars:/massbit/massbitroute/app/src/sites/services/$TYPE/vars:rw" \
+		massbit/massbitroute_${TYPE}:latest
+}
+$@
+
+#example _run_cmd gateway "https://portal.massbitroute.net/api/v1/gateway_install?id=6de43b8a-8785-4002-b6ff-016a8748b9a4&user_id=b363ddf4-42cf-4ccf-89c2-8c42c531ac99&blockchain=eth&network=mainnet&zone=EU&app_key=6SAmy22No6GhG35p7EBUMg&portal_url=https://portal.massbitroute.net&env=keiko"

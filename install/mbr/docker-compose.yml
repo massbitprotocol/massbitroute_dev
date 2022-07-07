@@ -1,0 +1,18 @@
+# version: "2"
+services:
+  git:
+    privileged: true
+    restart: unless-stopped
+    image: massbit/massbitroute_git
+    command: ""
+    build:
+      context: ./build
+      dockerfile: Dockerfile
+      args:
+        BRANCH: keiko
+    network_mode: "host"
+    volumes:
+      - ./logs:/massbit/massbitroute/app/src/sites/services/git/logs:rw
+      - ./vars:/massbit/massbitroute/app/src/sites/services/git/vars:rw
+    environment:
+      - MBR_ENV=keiko

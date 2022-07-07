@@ -57,6 +57,12 @@ $service_dir/gwman|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_gwman.git|$GWMAN
 }
 _repo
 
+_docker_up() {
+	env=$1
+	shift
+	docker-compose -f install/mbr/docker-compose-$env.yml up $@
+}
+
 _prepare() {
 	echo "Prepare"
 	mkdir -p $SITE_ROOT/logs/nginx $SITE_ROOT/db $SITE_ROOT/tmp
