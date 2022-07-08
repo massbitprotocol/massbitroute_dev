@@ -3,13 +3,13 @@ services:
   api:
     privileged: true
     restart: unless-stopped
-    image: massbit/massbitroute_api_dev:_VER_-_BRANCH_-_ENV_
+    image: massbit/massbitroute_api_dev:0.0.1-shamu-dev
     command: "-n"
     build:
       context: /massbit/massbitroute/app/src/sites/services/api
-      dockerfile: install/mbr/build/api/Dockerfile._ENV_
+      dockerfile: install/mbr/build/api/Dockerfile.dev
       args:
-        BRANCH: _BRANCH_
+        BRANCH: shamu
         GIT_PRIVATE_READ_URL: http://massbit:DaTR__SGr89IjgvcwBtJyg0v_DFySDwI@git.massbitroute.net
     container_name: mbr_api
     # network_mode: "host"
@@ -21,17 +21,17 @@ services:
       - ./api/tmp:/massbit/massbitroute/app/src/sites/services/git/tmp:rw
       - ./api/db:/massbit/massbitroute/app/src/sites/services/git/db:rw
     environment:
-      - MBR_ENV=_BRANCH_  
+      - MBR_ENV=shamu  
   git:
     privileged: true
     restart: unless-stopped
-    image: massbit/massbitroute_git_dev:_VER_-_BRANCH_-_ENV_
+    image: massbit/massbitroute_git_dev:0.0.1-shamu-dev
     command: "-n"
     build:
       context: /massbit/massbitroute/app/src/sites/services/git
-      dockerfile: install/mbr/build/git/Dockerfile._ENV_
+      dockerfile: install/mbr/build/git/Dockerfile.dev
       args:
-        BRANCH: _BRANCH_
+        BRANCH: shamu
     container_name: mbr_git    
     volumes:
       - ./git/deploy:/massbit/massbitroute/app/src/sites/services/git/deploy:rw      
@@ -40,17 +40,17 @@ services:
       - ./git/tmp:/massbit/massbitroute/app/src/sites/services/git/tmp:rw
       - ./git/db:/massbit/massbitroute/app/src/sites/services/git/db:rw
     environment:
-      - MBR_ENV=_BRANCH_
+      - MBR_ENV=shamu
   gwman:
     privileged: true
     restart: unless-stopped
-    image: massbit/massbitroute_gwman_dev:_VER_-_BRANCH_-_ENV_
+    image: massbit/massbitroute_gwman_dev:0.0.1-shamu-dev
     command: "-n"
     build:
       context: /massbit/massbitroute/app/src/sites/services/gwman
-      dockerfile: install/mbr/build/gwman/Dockerfile._ENV_
+      dockerfile: install/mbr/build/gwman/Dockerfile.dev
       args:
-        BRANCH: _BRANCH_
+        BRANCH: shamu
         GIT_PRIVATE_READ_URL: http://massbit:DaTR__SGr89IjgvcwBtJyg0v_DFySDwI@git.massbitroute.net        
     container_name: mbr_gwman  
     volumes:
@@ -59,17 +59,17 @@ services:
       - ./gwman/tmp:/massbit/massbitroute/app/src/sites/services/gwman/tmp:rw
       - ./gwman/db:/massbit/massbitroute/app/src/sites/services/gwman/db:rw
     environment:
-      - MBR_ENV=_BRANCH_      
+      - MBR_ENV=shamu      
   stat:
     privileged: true
     restart: unless-stopped
-    image: massbit/massbitroute_stat_dev:_VER_-_BRANCH_-_ENV_
+    image: massbit/massbitroute_stat_dev:0.0.1-shamu-dev
     command: "-n"
     build:
       context: /massbit/massbitroute/app/src/sites/services/stat
-      dockerfile: install/mbr/build/stat/Dockerfile._ENV_
+      dockerfile: install/mbr/build/stat/Dockerfile.dev
       args:
-        BRANCH: _BRANCH_
+        BRANCH: shamu
         GIT_PRIVATE_READ_URL: http://massbit:DaTR__SGr89IjgvcwBtJyg0v_DFySDwI@git.massbitroute.net        
     container_name: mbr_stat    
     volumes:
@@ -78,17 +78,17 @@ services:
       - ./stat/tmp:/massbit/massbitroute/app/src/sites/services/stat/tmp:rw
       - ./stat/db:/massbit/massbitroute/app/src/sites/services/stat/db:rw
     environment:
-      - MBR_ENV=_BRANCH_      
+      - MBR_ENV=shamu      
   monitor:
     privileged: true
     restart: unless-stopped
-    image: massbit/massbitroute_monitor_dev:_VER_-_BRANCH_-_ENV_
+    image: massbit/massbitroute_monitor_dev:0.0.1-shamu-dev
     command: "-n"
     build:
       context: /massbit/massbitroute/app/src/sites/services/monitor
-      dockerfile: install/mbr/build/monitor/Dockerfile._ENV_
+      dockerfile: install/mbr/build/monitor/Dockerfile.dev
       args:
-        BRANCH: _BRANCH_
+        BRANCH: shamu
         GIT_PRIVATE_READ_URL: http://massbit:DaTR__SGr89IjgvcwBtJyg0v_DFySDwI@git.massbitroute.net        
     container_name: mbr_monitor
     volumes:
@@ -97,4 +97,4 @@ services:
       - ./monitor/tmp:/massbit/massbitroute/app/src/sites/services/monitor/tmp:rw
       - ./monitor/db:/massbit/massbitroute/app/src/sites/services/monitor/db:rw
     environment:
-      - MBR_ENV=_BRANCH_      
+      - MBR_ENV=shamu      

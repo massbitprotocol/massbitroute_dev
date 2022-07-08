@@ -57,10 +57,24 @@ $service_dir/gwman|$GIT_PUBLIC_URL/massbitprotocol/massbitroute_gwman.git|$GWMAN
 }
 _repo
 
-_docker_up() {
+_docker() {
+	if [ $# -eq 0 ]; then
+		echo "$0 build|up dev|prod BRANCH VER"
+		exit 1
+	fi
+
 	env=$1
-	shift
-	docker-compose -f install/mbr/docker-compose-$env.yml up $@
+	bran=$2
+	ver=$3
+	shift 3
+	_f=install/mbr/docker-compose-$ver-$bran-$env.yml
+	sed "s/_BRANCH_/$bran/g" install/mbr/docker-compose-$env.yml >$_f
+	sed "s/_VER_/$ver/g" -i $_f
+	sed "s/_ENV_/$env/g" -i $_f
+	cat $_f
+	echo docker-compose -f $_f $@
+	docker-compose -f $_f $@
+
 }
 
 _prepare() {

@@ -3,16 +3,17 @@ services:
   git:
     privileged: true
     restart: unless-stopped
-    image: massbit/massbitroute_git
+    image: massbit/massbitroute_git:_VER_-_BRANCH_-_ENV_
     command: ""
     build:
-      context: ./build
-      dockerfile: Dockerfile
+      context: /massbit/massbitroute/app/src/sites/services/git
+      dockerfile: install/mbr/build/git/Dockerfile._ENV_      
       args:
-        BRANCH: keiko
+        BRANCH: _BRANCH_
     network_mode: "host"
     volumes:
+      - ./deploy:/massbit/massbitroute/app/src/sites/services/git/deploy:rw
       - ./logs:/massbit/massbitroute/app/src/sites/services/git/logs:rw
       - ./vars:/massbit/massbitroute/app/src/sites/services/git/vars:rw
     environment:
-      - MBR_ENV=keiko
+      - MBR_ENV=_BRANCH_
