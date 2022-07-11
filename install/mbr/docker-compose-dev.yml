@@ -30,7 +30,7 @@ services:
     image: massbit/massbitroute_api_dev:_VER_-_BRANCH_-_ENV_
     command: "-n"
     build:
-      context: /massbit/massbitroute/app/src/sites/services/api
+      context: /massbit/massbitroute/app/src
       dockerfile: install/mbr/build/api/Dockerfile._ENV_
       args:
         VERSION: _VER_-_BRANCH_-_ENV_
