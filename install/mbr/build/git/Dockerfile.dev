@@ -1,0 +1,14 @@
+ARG VERSION="latest"
+FROM massbit/massbitroute_base_dev:$VERSION
+MAINTAINER "Vu Tran<baysao@massbit.io>"
+
+ARG BRANCH="testing"
+
+
+ENV MBR_MODE=docker MBR_ROLE=git MBR_ENV=$BRANCH DEBIAN_FRONTEND=noninteractive
+
+RUN echo git clone https://github.com/massbitprotocol/massbitroute_git.git /massbit/massbitroute/app/src/sites/services/git -b $MBR_ENV \
+&&   git clone https://github.com/massbitprotocol/massbitroute_git.git /massbit/massbitroute/app/src/sites/services/git -b $MBR_ENV \ 
+&& bash -x /massbit/massbitroute/app/src/sites/services/git/scripts/run _install
+CMD ["-n"]
+ENTRYPOINT  ["/usr/bin/supervisord"]
