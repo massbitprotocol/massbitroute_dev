@@ -34,6 +34,7 @@ services:
       context: /massbit/massbitroute/app/src/sites/services/api
       dockerfile: install/mbr/build/api/Dockerfile._ENV_
       args:
+        VERSION: _VER_-_BRANCH_-_ENV_
         BRANCH: _BRANCH_
         GIT_PRIVATE_READ_URL: http://massbit:DaTR__SGr89IjgvcwBtJyg0v_DFySDwI@git.massbitroute.net
     container_name: mbr_api
@@ -41,10 +42,9 @@ services:
     # ports:
     #   - "443:443"
     volumes:
-      - ./api/logs:/massbit/massbitroute/app/src/sites/services/git/logs:rw
-      - ./api/vars:/massbit/massbitroute/app/src/sites/services/git/vars:rw
-      # - ./api/tmp:/massbit/massbitroute/app/src/sites/services/git/tmp:rw
-      - ./api/db:/massbit/massbitroute/app/src/sites/services/git/db:rw
+      - ./run/api/logs:/massbit/massbitroute/app/src/sites/services/git/logs:rw
+      - ./run/api/vars:/massbit/massbitroute/app/src/sites/services/git/vars:rw
+      - ./run/api/db:/massbit/massbitroute/app/src/sites/services/git/db:rw
     environment:
       - MBR_ENV=_BRANCH_  
   git:
@@ -56,14 +56,14 @@ services:
       context: /massbit/massbitroute/app/src/sites/services/git
       dockerfile: install/mbr/build/git/Dockerfile._ENV_
       args:
+        VERSION: _VER_-_BRANCH_-_ENV_
         BRANCH: _BRANCH_
     container_name: mbr_git    
     volumes:
-      - ./git/deploy:/massbit/massbitroute/app/src/sites/services/git/deploy:rw      
-      - ./git/logs:/massbit/massbitroute/app/src/sites/services/git/logs:rw
-      - ./git/vars:/massbit/massbitroute/app/src/sites/services/git/vars:rw
-      # - ./git/tmp:/massbit/massbitroute/app/src/sites/services/git/tmp:rw
-      - ./git/db:/massbit/massbitroute/app/src/sites/services/git/db:rw
+      - ./run/git/deploy:/massbit/massbitroute/app/src/sites/services/git/deploy:rw      
+      - ./run/git/logs:/massbit/massbitroute/app/src/sites/services/git/logs:rw
+      - ./run/git/vars:/massbit/massbitroute/app/src/sites/services/git/vars:rw
+      - ./run/git/db:/massbit/massbitroute/app/src/sites/services/git/db:rw
     environment:
       - MBR_ENV=_BRANCH_
   gwman:
@@ -75,13 +75,14 @@ services:
       context: /massbit/massbitroute/app/src/sites/services/gwman
       dockerfile: install/mbr/build/gwman/Dockerfile._ENV_
       args:
+        VERSION: _VER_-_BRANCH_-_ENV_
         BRANCH: _BRANCH_
         GIT_PRIVATE_READ_URL: http://massbit:DaTR__SGr89IjgvcwBtJyg0v_DFySDwI@git.massbitroute.net        
     container_name: mbr_gwman  
     volumes:
-      - ./gwman/logs:/massbit/massbitroute/app/src/sites/services/gwman/logs:rw
-      - ./gwman/vars:/massbit/massbitroute/app/src/sites/services/gwman/vars:rw
-      - ./gwman/db:/massbit/massbitroute/app/src/sites/services/gwman/db:rw
+      - ./run/gwman/logs:/massbit/massbitroute/app/src/sites/services/gwman/logs:rw
+      - ./run/gwman/vars:/massbit/massbitroute/app/src/sites/services/gwman/vars:rw
+      - ./run/gwman/db:/massbit/massbitroute/app/src/sites/services/gwman/db:rw
     environment:
       - MBR_ENV=_BRANCH_      
   stat:
@@ -93,14 +94,14 @@ services:
       context: /massbit/massbitroute/app/src/sites/services/stat
       dockerfile: install/mbr/build/stat/Dockerfile._ENV_
       args:
+        VERSION: _VER_-_BRANCH_-_ENV_        
         BRANCH: _BRANCH_
         GIT_PRIVATE_READ_URL: http://massbit:DaTR__SGr89IjgvcwBtJyg0v_DFySDwI@git.massbitroute.net        
     container_name: mbr_stat    
     volumes:
-      - ./stat/logs:/massbit/massbitroute/app/src/sites/services/stat/logs:rw
-      - ./stat/vars:/massbit/massbitroute/app/src/sites/services/stat/vars:rw
-      # - ./stat/tmp:/massbit/massbitroute/app/src/sites/services/stat/tmp:rw
-      - ./stat/db:/massbit/massbitroute/app/src/sites/services/stat/db:rw
+      - ./run/stat/logs:/massbit/massbitroute/app/src/sites/services/stat/logs:rw
+      - ./run/stat/vars:/massbit/massbitroute/app/src/sites/services/stat/vars:rw
+      - ./run/stat/db:/massbit/massbitroute/app/src/sites/services/stat/db:rw
     environment:
       - MBR_ENV=_BRANCH_      
   monitor:
@@ -112,14 +113,14 @@ services:
       context: /massbit/massbitroute/app/src/sites/services/monitor
       dockerfile: install/mbr/build/monitor/Dockerfile._ENV_
       args:
+        VERSION: _VER_-_BRANCH_-_ENV_        
         BRANCH: _BRANCH_
         GIT_PRIVATE_READ_URL: http://massbit:DaTR__SGr89IjgvcwBtJyg0v_DFySDwI@git.massbitroute.net        
     container_name: mbr_monitor
     volumes:
-      - ./monitor/logs:/massbit/massbitroute/app/src/sites/services/monitor/logs:rw
-      - ./monitor/vars:/massbit/massbitroute/app/src/sites/services/monitor/vars:rw
-      # - ./monitor/tmp:/massbit/massbitroute/app/src/sites/services/monitor/tmp:rw
-      - ./monitor/db:/massbit/massbitroute/app/src/sites/services/monitor/db:rw
+      - ./run/monitor/logs:/massbit/massbitroute/app/src/sites/services/monitor/logs:rw
+      - ./run/monitor/vars:/massbit/massbitroute/app/src/sites/services/monitor/vars:rw
+      - ./run/monitor/db:/massbit/massbitroute/app/src/sites/services/monitor/db:rw
     environment:
       - MBR_ENV=_BRANCH_
   gateway:
@@ -135,7 +136,7 @@ services:
         BRANCH: _BRANCH_
     container_name: mbr_gateway
     volumes:
-      - ./gateway/logs:/massbit/massbitroute/app/src/sites/services/gateway/logs:rw
+      - ./run/gateway/logs:/massbit/massbitroute/app/src/sites/services/gateway/logs:rw
     environment:
       - MBR_ENV=_BRANCH_
       - INSTALL_CMD=https://portal.massbitroute.net/api/v1/gateway_install?id=89f24596-8087-4406-87a4-aec47ff2b4d7&user_id=b363ddf4-42cf-4ccf-89c2-8c42c531ac99&blockchain=eth&network=mainnet&zone=EU&app_key=LFyHE_WaDS6HiQuE6QqKSA&portal_url=https://portal.massbitroute.net&env=keiko
@@ -152,7 +153,7 @@ services:
         BRANCH: _BRANCH_
     container_name: mbr_node
     volumes:
-      - ./node/logs:/massbit/massbitroute/app/src/sites/services/node/logs:rw
+      - ./run/node/logs:/massbit/massbitroute/app/src/sites/services/node/logs:rw
     environment:
       - MBR_ENV=_BRANCH_
       - INSTALL_CMD=https://portal.massbitroute.net/api/v1/node_install?id=139aa103-96fb-4000-8a5f-cc8650298037&user_id=b363ddf4-42cf-4ccf-89c2-8c42c531ac99&blockchain=eth&network=mainnet&zone=EU&data_url=http://34.81.232.186:8545&app_key=y8OaDKRL-vdBkd5zXNsSwA&portal_url=https://portal.massbitroute.net&env=keiko
