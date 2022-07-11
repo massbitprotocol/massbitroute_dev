@@ -16,10 +16,10 @@ cat $_f
 echo docker-compose -f $_f $@
 docker-compose -f $_f $@
 
-#./docker.sh build dev shamu 0.0.1 api
-#./docker.sh build dev shamu 0.0.1 git
-#./docker.sh build dev shamu 0.0.1 stat
-#./docker.sh build dev shamu 0.0.1 monitor
+#./docker.sh dev shamu 0.0.1 build api
+#./docker.sh dev shamu 0.0.1 build git
+#./docker.sh dev shamu 0.0.1 build stat
+#./docker.sh dev shamu 0.0.1 build monitor
 
-#./docker.sh build dev shamu 0.0.1 node
-#./docker.sh build dev shamu 0.0.1 gateway
+#./docker.sh dev shamu 0.0.1 build node
+#./docker.sh dev shamu 0.0.1 build gateway
