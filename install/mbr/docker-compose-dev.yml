@@ -1,5 +1,30 @@
 # version: "2"
 services:
+  basenode:
+    privileged: true
+    restart: unless-stopped
+    image: massbit/massbitroute_basenode_dev:_VER_-_BRANCH_-_ENV_
+    command: ""
+    build:
+      context: /massbit/massbitroute/app/src
+      dockerfile: install/mbr/build/base/Dockerfile_basenode._ENV_
+      args:
+        BRANCH: _BRANCH_
+    container_name: mbr_basenode
+    
+  base:
+    privileged: true
+    restart: unless-stopped
+    image: massbit/massbitroute_base_dev:_VER_-_BRANCH_-_ENV_
+    command: ""
+    build:
+      context: /massbit/massbitroute/app/src
+      dockerfile: install/mbr/build/base/Dockerfile._ENV_
+      args:
+        BRANCH: _BRANCH_
+        GIT_PRIVATE_READ_URL: http://massbit:DaTR__SGr89IjgvcwBtJyg0v_DFySDwI@git.massbitroute.net
+    container_name: mbr_base
+    
   api:
     privileged: true
     restart: unless-stopped
@@ -18,7 +43,7 @@ services:
     volumes:
       - ./api/logs:/massbit/massbitroute/app/src/sites/services/git/logs:rw
       - ./api/vars:/massbit/massbitroute/app/src/sites/services/git/vars:rw
-      - ./api/tmp:/massbit/massbitroute/app/src/sites/services/git/tmp:rw
+      # - ./api/tmp:/massbit/massbitroute/app/src/sites/services/git/tmp:rw
       - ./api/db:/massbit/massbitroute/app/src/sites/services/git/db:rw
     environment:
       - MBR_ENV=_BRANCH_  
@@ -37,7 +62,7 @@ services:
       - ./git/deploy:/massbit/massbitroute/app/src/sites/services/git/deploy:rw      
       - ./git/logs:/massbit/massbitroute/app/src/sites/services/git/logs:rw
       - ./git/vars:/massbit/massbitroute/app/src/sites/services/git/vars:rw
-      - ./git/tmp:/massbit/massbitroute/app/src/sites/services/git/tmp:rw
+      # - ./git/tmp:/massbit/massbitroute/app/src/sites/services/git/tmp:rw
       - ./git/db:/massbit/massbitroute/app/src/sites/services/git/db:rw
     environment:
       - MBR_ENV=_BRANCH_
@@ -56,7 +81,6 @@ services:
     volumes:
       - ./gwman/logs:/massbit/massbitroute/app/src/sites/services/gwman/logs:rw
       - ./gwman/vars:/massbit/massbitroute/app/src/sites/services/gwman/vars:rw
-      - ./gwman/tmp:/massbit/massbitroute/app/src/sites/services/gwman/tmp:rw
       - ./gwman/db:/massbit/massbitroute/app/src/sites/services/gwman/db:rw
     environment:
       - MBR_ENV=_BRANCH_      
@@ -75,7 +99,7 @@ services:
     volumes:
       - ./stat/logs:/massbit/massbitroute/app/src/sites/services/stat/logs:rw
       - ./stat/vars:/massbit/massbitroute/app/src/sites/services/stat/vars:rw
-      - ./stat/tmp:/massbit/massbitroute/app/src/sites/services/stat/tmp:rw
+      # - ./stat/tmp:/massbit/massbitroute/app/src/sites/services/stat/tmp:rw
       - ./stat/db:/massbit/massbitroute/app/src/sites/services/stat/db:rw
     environment:
       - MBR_ENV=_BRANCH_      
@@ -94,7 +118,42 @@ services:
     volumes:
       - ./monitor/logs:/massbit/massbitroute/app/src/sites/services/monitor/logs:rw
       - ./monitor/vars:/massbit/massbitroute/app/src/sites/services/monitor/vars:rw
-      - ./monitor/tmp:/massbit/massbitroute/app/src/sites/services/monitor/tmp:rw
+      # - ./monitor/tmp:/massbit/massbitroute/app/src/sites/services/monitor/tmp:rw
       - ./monitor/db:/massbit/massbitroute/app/src/sites/services/monitor/db:rw
     environment:
-      - MBR_ENV=_BRANCH_      
+      - MBR_ENV=_BRANCH_
+  gateway:
+    privileged: true
+    restart: unless-stopped
+    image: massbit/massbitroute_gateway_dev:_VER_-_BRANCH_-_ENV_
+    command: "-n"
+    build:
+      context: /massbit/massbitroute/app/src/sites/services/gateway
+      dockerfile: install/mbr/build/gateway/Dockerfile._ENV_
+      args:
+        VERSION: _VER_-_BRANCH_-_ENV_
+        BRANCH: _BRANCH_
+    container_name: mbr_gateway
+    volumes:
+      - ./gateway/logs:/massbit/massbitroute/app/src/sites/services/gateway/logs:rw
+    environment:
+      - MBR_ENV=_BRANCH_
+      - INSTALL_CMD=https://portal.massbitroute.net/api/v1/gateway_install?id=89f24596-8087-4406-87a4-aec47ff2b4d7&user_id=b363ddf4-42cf-4ccf-89c2-8c42c531ac99&blockchain=eth&network=mainnet&zone=EU&app_key=LFyHE_WaDS6HiQuE6QqKSA&portal_url=https://portal.massbitroute.net&env=keiko
+  node:
+    privileged: true
+    restart: unless-stopped
+    image: massbit/massbitroute_node_dev:_VER_-_BRANCH_-_ENV_
+    command: "-n"
+    build:
+      context: /massbit/massbitroute/app/src/sites/services/node
+      dockerfile: install/mbr/build/node/Dockerfile._ENV_
+      args:
+        VERSION: _VER_-_BRANCH_-_ENV_
+        BRANCH: _BRANCH_
+    container_name: mbr_node
+    volumes:
+      - ./node/logs:/massbit/massbitroute/app/src/sites/services/node/logs:rw
+    environment:
+      - MBR_ENV=_BRANCH_
+      - INSTALL_CMD=https://portal.massbitroute.net/api/v1/node_install?id=139aa103-96fb-4000-8a5f-cc8650298037&user_id=b363ddf4-42cf-4ccf-89c2-8c42c531ac99&blockchain=eth&network=mainnet&zone=EU&data_url=http://34.81.232.186:8545&app_key=y8OaDKRL-vdBkd5zXNsSwA&portal_url=https://portal.massbitroute.net&env=keiko
+      
