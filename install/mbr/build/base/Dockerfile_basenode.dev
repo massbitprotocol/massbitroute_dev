@@ -2,9 +2,7 @@ FROM ubuntu:20.04
 MAINTAINER "Vu Tran<baysao@massbit.io>"
 
 ARG BRANCH="testing"
-ARG GIT_PRIVATE_READ_URL="https://github.com"
-
-ENV GIT_PRIVATE_READ_URL=${GIT_PRIVATE_READ_URL} MBR_ENV=${BRANCH} MBR_MODE=docker DEBIAN_FRONTEND=noninteractive
+ENV MBR_ENV=${BRANCH} MBR_MODE=docker DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \

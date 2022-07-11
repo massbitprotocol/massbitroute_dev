@@ -2,9 +2,8 @@ FROM ubuntu:20.04
 MAINTAINER "Vu Tran<baysao@massbit.io>"
 
 ARG BRANCH="testing"
-ARG GIT_PRIVATE_READ_URL="https://github.com"
 
-ENV GIT_PRIVATE_READ_URL=${GIT_PRIVATE_READ_URL} MBR_ENV=${BRANCH} MBR_MODE=docker DEBIAN_FRONTEND=noninteractive
+ENV MBR_ENV=${BRANCH} MBR_MODE=docker DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -19,8 +18,6 @@ RUN apt-get update \
 && git clone https://github.com/massbitprotocol/massbitroute_gbc /massbit/massbitroute/app/gbc -b $MBR_ENV \
     && echo git clone https://github.com/massbitprotocol/massbitroute_asdf /massbit/massbitroute/app/gbc/bin/.asdf -b $MBR_ENV \
     && git clone https://github.com/massbitprotocol/massbitroute_asdf /massbit/massbitroute/app/gbc/bin/.asdf -b $MBR_ENV \
-    && echo git clone $GIT_PRIVATE_READ_URL/massbitroute/ssl.git /etc/letsencrypt -b $MBR_ENV \
-    && git clone $GIT_PRIVATE_READ_URL/massbitroute/ssl.git /etc/letsencrypt -b $MBR_ENV \
     && echo git clone $GIT_PUBLIC_URL/massbitprotocol/massbitroute_mkagent.git /massbit/massbitroute/app/src/sites/services/mkagent  -b $MBR_ENV \
     && git clone https://github.com/massbitprotocol/massbitroute_mkagent.git /massbit/massbitroute/app/src/sites/services/mkagent  -b $MBR_ENV \
     && /massbit/massbitroute/app/src/sites/services/mkagent/scripts/run _prepare \

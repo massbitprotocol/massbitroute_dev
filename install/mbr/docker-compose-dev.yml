@@ -22,7 +22,6 @@ services:
       dockerfile: install/mbr/build/base/Dockerfile._ENV_
       args:
         BRANCH: _BRANCH_
-        GIT_PRIVATE_READ_URL: http://massbit:DaTR__SGr89IjgvcwBtJyg0v_DFySDwI@git.massbitroute.net
     container_name: mbr_base
     
   api:
@@ -36,17 +35,17 @@ services:
       args:
         VERSION: _VER_-_BRANCH_-_ENV_
         BRANCH: _BRANCH_
-        GIT_PRIVATE_READ_URL: http://massbit:DaTR__SGr89IjgvcwBtJyg0v_DFySDwI@git.massbitroute.net
     container_name: mbr_api
     # network_mode: "host"
     # ports:
     #   - "443:443"
     volumes:
-      - ./run/api/logs:/massbit/massbitroute/app/src/sites/services/git/logs:rw
-      - ./run/api/vars:/massbit/massbitroute/app/src/sites/services/git/vars:rw
-      - ./run/api/db:/massbit/massbitroute/app/src/sites/services/git/db:rw
+      - ./run/api/logs:/massbit/massbitroute/app/src/sites/services/api/logs:rw
+      - ./run/api/vars:/massbit/massbitroute/app/src/sites/services/api/vars:rw
+      - ./run/api/db:/massbit/massbitroute/app/src/sites/services/api/db:rw
     environment:
-      - MBR_ENV=_BRANCH_  
+      - MBR_ENV=_BRANCH_
+      - GIT_PRIVATE_READ_URL=http://massbit:DaTR__SGr89IjgvcwBtJyg0v_DFySDwI@git.massbitroute.net
   git:
     privileged: true
     restart: unless-stopped
@@ -66,6 +65,7 @@ services:
       - ./run/git/db:/massbit/massbitroute/app/src/sites/services/git/db:rw
     environment:
       - MBR_ENV=_BRANCH_
+      - GIT_PRIVATE_READ_URL=http://massbit:DaTR__SGr89IjgvcwBtJyg0v_DFySDwI@git.massbitroute.net      
   gwman:
     privileged: true
     restart: unless-stopped
@@ -77,14 +77,14 @@ services:
       args:
         VERSION: _VER_-_BRANCH_-_ENV_
         BRANCH: _BRANCH_
-        GIT_PRIVATE_READ_URL: http://massbit:DaTR__SGr89IjgvcwBtJyg0v_DFySDwI@git.massbitroute.net        
     container_name: mbr_gwman  
     volumes:
       - ./run/gwman/logs:/massbit/massbitroute/app/src/sites/services/gwman/logs:rw
       - ./run/gwman/vars:/massbit/massbitroute/app/src/sites/services/gwman/vars:rw
       - ./run/gwman/db:/massbit/massbitroute/app/src/sites/services/gwman/db:rw
     environment:
-      - MBR_ENV=_BRANCH_      
+      - MBR_ENV=_BRANCH_
+      - GIT_PRIVATE_READ_URL=http://massbit:DaTR__SGr89IjgvcwBtJyg0v_DFySDwI@git.massbitroute.net      
   stat:
     privileged: true
     restart: unless-stopped
@@ -96,14 +96,14 @@ services:
       args:
         VERSION: _VER_-_BRANCH_-_ENV_        
         BRANCH: _BRANCH_
-        GIT_PRIVATE_READ_URL: http://massbit:DaTR__SGr89IjgvcwBtJyg0v_DFySDwI@git.massbitroute.net        
     container_name: mbr_stat    
     volumes:
       - ./run/stat/logs:/massbit/massbitroute/app/src/sites/services/stat/logs:rw
       - ./run/stat/vars:/massbit/massbitroute/app/src/sites/services/stat/vars:rw
       - ./run/stat/db:/massbit/massbitroute/app/src/sites/services/stat/db:rw
     environment:
-      - MBR_ENV=_BRANCH_      
+      - MBR_ENV=_BRANCH_
+      - GIT_PRIVATE_READ_URL=http://massbit:DaTR__SGr89IjgvcwBtJyg0v_DFySDwI@git.massbitroute.net            
   monitor:
     privileged: true
     restart: unless-stopped
@@ -115,7 +115,6 @@ services:
       args:
         VERSION: _VER_-_BRANCH_-_ENV_        
         BRANCH: _BRANCH_
-        GIT_PRIVATE_READ_URL: http://massbit:DaTR__SGr89IjgvcwBtJyg0v_DFySDwI@git.massbitroute.net        
     container_name: mbr_monitor
     volumes:
       - ./run/monitor/logs:/massbit/massbitroute/app/src/sites/services/monitor/logs:rw
@@ -123,6 +122,7 @@ services:
       - ./run/monitor/db:/massbit/massbitroute/app/src/sites/services/monitor/db:rw
     environment:
       - MBR_ENV=_BRANCH_
+      - GIT_PRIVATE_READ_URL=http://massbit:DaTR__SGr89IjgvcwBtJyg0v_DFySDwI@git.massbitroute.net      
   gateway:
     privileged: true
     restart: unless-stopped
