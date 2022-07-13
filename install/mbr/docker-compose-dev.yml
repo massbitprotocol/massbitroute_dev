@@ -40,6 +40,7 @@ services:
     # ports:
     #   - "443:443"
     volumes:
+      - /massbit/massbitroute/app/src/sites/services/api_local:/massbit/massbitroute/app/src/sites/services/api:rw
       - ./run/api/logs:/massbit/massbitroute/app/src/sites/services/api/logs:rw
       - ./run/api/vars:/massbit/massbitroute/app/src/sites/services/api/vars:rw
       - ./run/api/db:/massbit/massbitroute/app/src/sites/services/api/db:rw
@@ -102,6 +103,9 @@ services:
       - ./run/stat/vars:/massbit/massbitroute/app/src/sites/services/stat/vars:rw
       - ./run/stat/db:/massbit/massbitroute/app/src/sites/services/stat/db:rw
     environment:
+      - STAT_TYPE=node
+      - STAT_NETWORK=eth
+      - STAT_BLOCKCHAIN=mainnet
       - MBR_ENV=_BRANCH_
       - GIT_PRIVATE_READ_URL=http://massbit:DaTR__SGr89IjgvcwBtJyg0v_DFySDwI@git.massbitroute.net            
   monitor:
