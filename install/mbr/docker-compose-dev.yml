@@ -125,6 +125,9 @@ services:
       - ./run/monitor/vars:/massbit/massbitroute/app/src/sites/services/monitor/vars:rw
       - ./run/monitor/db:/massbit/massbitroute/app/src/sites/services/monitor/db:rw
     environment:
+      - MONITOR_TYPES=node
+      - MONITOR_NETWORKS=eth
+      - MONITOR_BLOCKCHAINS=mainnet
       - MBR_ENV=_BRANCH_
       - GIT_PRIVATE_READ_URL=http://massbit:DaTR__SGr89IjgvcwBtJyg0v_DFySDwI@git.massbitroute.net      
   gateway:
