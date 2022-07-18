@@ -60,13 +60,12 @@ services:
         BRANCH: _BRANCH_
     container_name: mbr_git    
     volumes:
-      - ./run/git/deploy:/massbit/massbitroute/app/src/sites/services/git/deploy:rw      
+      - ./run/git/data:/massbit/massbitroute/app/src/sites/services/git/data:rw
       - ./run/git/logs:/massbit/massbitroute/app/src/sites/services/git/logs:rw
       - ./run/git/vars:/massbit/massbitroute/app/src/sites/services/git/vars:rw
       - ./run/git/db:/massbit/massbitroute/app/src/sites/services/git/db:rw
     environment:
       - MBR_ENV=_BRANCH_
-      - GIT_PRIVATE_READ_URL=http://massbit:DaTR__SGr89IjgvcwBtJyg0v_DFySDwI@git.massbitroute.net      
   gwman:
     privileged: true
     restart: unless-stopped
